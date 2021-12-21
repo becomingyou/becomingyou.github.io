@@ -52,7 +52,6 @@ monogatari.configuration ('credits', {
 	},
 
 	"Special Thanks to:" : {
-		"Friends" : ["JurigAnsos", "Madeby1997"],
 		"Lecturer" : "Budi Adi Nugroho, S.Sn., M.Sn.",
 		"Lecturer 2" : "Duto Hardono, S.Sn., M.Sn.",
 	},
