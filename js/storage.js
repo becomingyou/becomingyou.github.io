@@ -8,6 +8,7 @@ monogatari.storage ({
 		domisili: '',
 		name: 'Yoga',
 		positive: 20,
+		degenerate : 1
 
 	}
 });

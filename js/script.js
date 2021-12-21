@@ -105,10 +105,8 @@ monogatari.assets ('videos', {
 // Define the images used in the game.
 monogatari.assets ('images', {
 	'MejaDefault': 'MejaDefault.png',
-	
-	
-
-
+	'FiraChoke' : 'FiraChoke.png',
+	'FiraChokeEye' : 'FiraChokeEye.png'
 });
 
 // Define the backgrounds for each scene.
@@ -158,6 +156,7 @@ monogatari.script ({
 	// The game starts here.
 	'Start': [
 		'show scene #000000 with fadeIn',
+		
 		
 		
 		//Pesan Intro
@@ -217,6 +216,11 @@ monogatari.script ({
 
 		'Sip makasih yaw! Selamat menikmati :)',
 
+		'jump prolog'
+
+	],
+
+	'prolog' : [
 		//------------------------------------------------------------------------PROLOG----------------------------------------------------------------
 		'show scene #181D31 with fadeIn end-fadeOut',
 		'play sound disclaimer with volume 70',
@@ -251,8 +255,32 @@ monogatari.script ({
 			}
 		},
 
-		
 
+		{'Conditional': {
+			'Condition': function(){
+				if(this.storage().player.degenerate < 1) {
+					return 'degenerate';
+				} else {
+					return 'fresh';
+				}
+			},
+			'degenerate': 'jump prolog-warning',
+			'fresh': 'jump prolog-2',
+		}},
+	],
+
+	'prolog-warning': [
+		'Fira sudah mati, kenapa kamu tetap mainin game ini?',
+		'show scene NightmareRed with fadeIn',
+		'Kamu ga merasa bersalah?',
+		'...',
+		'Gapunya hati emang',
+		'jump prolog-2'
+	],
+
+	'prolog-2': [
+
+		'show scene #181D31 with fadeIn end-fadeOut',
 		'Anu...{{player.name}}, kamu sekelompok sama Fira ya?',
 		'[Uh iya, ada apa ya?]',
 
@@ -1378,12 +1406,15 @@ monogatari.script ({
 		'(Tiba-tiba pintu kamar mandi kebuka dan Fira dengan jelas ngeliat gua lagi ngebongkar isi tas dia)',
 		'fira Lo....ngapain..',
 		'fira LO NGAPAIN GUA TANYA',
+		'show image FiraChoke with fadeIn',
 		'(Fira narik kearah gua dan ngehempas badan gua ke dinding)',
 		'fira GUA DARI TADI UDAH SABAR YA SAMA LO',
 		'fira KELAKUAN LO GA ADA BEDANYA YA SAMA MEREKA',
 		'fira APA YANG KALIAN PENGEN DARI GUA HAH???',
 		'....',
 		'.........',
+		'hide image FiraChoke',
+		'show image FiraChokeEye',
 		'fira JAWAB GUA SIALAN!!',
 		'Barang-barang yang di tas lu',
 		'fira ITU URUSAN GUA DAN ITU BARANG GUE',
@@ -1429,6 +1460,7 @@ monogatari.script ({
 		'M-maaf.....',
 		'....',
 		'.....',
+		'hide image FiraChokeEye',
 		'(Fira ngelonggarin cengkraman tangan dia di kerah gua)',
 		'fira ....',
 		'fira hhhhhhhh',
@@ -1442,6 +1474,8 @@ monogatari.script ({
 	//------------------------------------------------------------------------BAD ENDING - 2----------------------------------------------------------------
 	'act4neg-2b' : [
 		'(Apa yang lo lakuin itu salah, Fira)',
+		'hide image FiraChokeEye',
+		'show image FiraChoke',
 		'Gua bakal straightforward ke lo',
 		'Lo beneran pernah ngebunuh bayi?',
 		'fira ...',
@@ -1453,6 +1487,10 @@ monogatari.script ({
 		'fira Apa yang bakal kalian lakuin?',
 		'H-hah?',
 		'fira Dan apa yang bakal lo lakuin kalo emang ternyata engga?',
+
+		'hide image FiraChoke',
+		'show image FiraChokeEye',
+
 		'fira Gua capek ya denger semua omongan dari mulut-mulut kalian itu',
 		'fira Gua punya alesan tersendiri kenapa gua ga mau konfirmasi omongan mereka',
 		'(Tangan fira seakan-akan mau mencekek leher gua)',
@@ -1531,6 +1569,8 @@ monogatari.script ({
 		'Ini semua ga akan terjadi kalo kamu ga pernah lahir',
 
 
+		'...',
+		'......',
 
 
 		'Apakah kamu ngerasa puas {{player.realname}}?',
@@ -1540,8 +1580,70 @@ monogatari.script ({
 		'Bagaimana dengan Fira?',
 		'Hidupnya berhenti sampai disini cuma gara-gara rasa ingin tahu kamu.',
 		'Ditunggu karmanya di daerah {{player.domisili}} ya.',
-		'end'
-		//Bad end
 
+		'...',
+		'.......',
+		'..........',
+		//Bad end
+		{
+			'Choice': {
+				'Dialog': '...',
+				'act4neg-exit': {
+					'Text': '[Exit]',
+					'Do': 'jump act4neg-exit'
+				},
+				'act4neg-3': {
+					'Text': '[Mulai lagi dari Awal]',
+					'Do': 'jump act4neg-3'
+				}
+			}
+		}
+
+	],
+
+	'act4neg-exit' : ['end'],
+
+	'act4neg-3' : [
+		{'Function':{
+            'Apply': function () {
+				const {positive} = monogatari.storage ('player');
+				monogatari.storage ({
+					player: {
+						positive: 20
+					}
+				});
+            },
+
+            'Reverse': function () {
+                const {positive} = monogatari.storage ('player');
+				monogatari.storage ({
+					player: {
+						positive: 20
+					}
+				});
+            }   
+		}},
+
+		{'Function':{
+            'Apply': function () {
+				const {degenerate} = monogatari.storage ('player');
+				monogatari.storage ({
+					player: {
+						degenerate : 0
+					}
+				});
+            },
+
+            'Reverse': function () {
+                const {degenerate} = monogatari.storage ('player');
+				monogatari.storage ({
+					player: {
+						degenerate : 1
+					}
+				});
+            }   
+		}},
+		'stop music act4deadmusic with fade 1',
+		'jump prolog',
 	],
 });
