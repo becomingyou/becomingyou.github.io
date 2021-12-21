@@ -36,6 +36,7 @@ $_ready (() => {
 
 		monogatari.component ('quick-menu').removeButton ('Save');
 		monogatari.component ('quick-menu').removeButton ('Load');
+		monogatari.component ('quick-menu').removeButton ('Back');
 
 	});
 });

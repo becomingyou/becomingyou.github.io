@@ -788,7 +788,7 @@ monogatari.script ({
 			'Choice': {
 				'Dialog': '(...Sesuatu?)',
 				'act2-2a': {
-					'Text': '(Yah, mau gimana...gapapa deh',
+					'Text': '(Yah, mau gimana...gapapa deh)',
 					'Do': 'jump act2-2a'
 				},
 				'act2-2b': {
@@ -1328,6 +1328,7 @@ monogatari.script ({
 	//------------------------------------------------------------------------GOOD ENDING----------------------------------------------------------------
 	'act4pos' : [
 		'stop music act2music with fade 3',
+		'stop music act3music with fade 3',
 		'play music act4posmusic with loop volume 60 fade 3',
 		'(Fira diem untuk beberapa saat)',
 		'fira {{player.name}}, gua....',
@@ -1495,7 +1496,7 @@ monogatari.script ({
 		'(ngga ngga ngga NGGA NGGA NGGA NGGA NGGA GUA GAMAU MATI)',
 		'(Gua pegang pergelangan tangan Fira dan ngedorong dia ke lantai)',
 		'(Pisau lipatnya juga berhasil gua rebut dari dia)',
-		'play sound crying with fade 1',
+		'stop sound crying with fade 1',
 		'(....Aneh, padahal tenaga Fira sekuat itu tadi....)',
 		'.....',
 		'F-Fira??',
