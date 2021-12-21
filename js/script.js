@@ -74,7 +74,8 @@ monogatari.assets ('music', {
 	'act3music' : 'Guilty Conscience.mp3',
 	'act4posmusic' : 'Calming Tides.mp3',
 	'act4netmusic' : 'Wishy Washy.mp3',
-	'act4negmusic' : 'Rapid Deterioriation.mp3'
+	'act4negmusic' : 'Rapid Deterioriation.mp3',
+	'act4deadmusic' : 'Unsaved Changes.mp3'
 });
 
 // Define the voice files used in the game.
@@ -105,8 +106,8 @@ monogatari.assets ('videos', {
 // Define the images used in the game.
 monogatari.assets ('images', {
 	'MejaDefault': 'MejaDefault.png',
-	'FiraGlitching': 'FiraGlitching.gif',
-
+	
+	
 
 
 });
@@ -115,7 +116,17 @@ monogatari.assets ('images', {
 monogatari.assets ('scenes', {
 	'RuangTamu': 'RuangTamu.png',
 	'Nightmare': 'Nightmare.png',
-	'NightmareRed': 'NightmareRed.png',
+	'NightmareRed': 'NightmareRed.gif',
+	'FiraGlitching': 'FiraGlitching.gif',
+	'BGDistort' : 'BGDistort.gif',
+	'BGGlitch1' : 'BGGlitch1.gif',
+	'BGGlitch2' : 'BGGlitch2.gif',
+	'BGGlitch3' : 'BGGlitch3.gif',
+	'BGGlitchGray' : 'BGGlitchGray.gif',
+
+	'FiraDead1' : 'FiraDead1.gif',
+	'FiraDead2' : 'FiraDead2.gif',
+	'GoodEnd' : 'GoodEnd.gif'
 });
 
 
@@ -123,7 +134,7 @@ monogatari.assets ('scenes', {
 monogatari.characters ({
 	'fira': {
 		name: 'Fira',
-		color: '#6E3CBC',
+		color: '#87CEEB',
 		sprites: {
 			normal: 'FiraDefault.png',
 			talking: 'FiraTalking.png',
@@ -136,7 +147,8 @@ monogatari.characters ({
 			readingNervous: 'FiraReadNervous.png',
 			readingNervousTalking: 'FiraReadNervousTalking.png',
 			readingAnnoyed: 'FiraReadAnnoyed.png',
-			readingAngry: 'FiraReadAngry.png'
+			readingAngry: 'FiraReadAngry.png',
+			hit : 'FiraHit.png'
 
 		}
 	}
@@ -244,7 +256,9 @@ monogatari.script ({
 
 		'Anu...{{player.name}}, kamu sekelompok sama Fira ya?',
 		'[Uh iya, ada apa ya?]',
+
 		'Kamu udah tau soal Fira?',
+
 		'Belum? Wah... Hati-hati ya',
 		'Rumornya Fira itu ngebunuh anak yang masih bayi, 2 tahun yang lalu',
 		'Maka dari itu dia gap year 2 tahun karena ditahan',
@@ -400,7 +414,7 @@ monogatari.script ({
 		'show background RuangTamu with fadeIn end-fadeOut',
 
 		'(Setelah balik, gua ngeliat Fira ngeliatin buku yang dia baca dari tadi, keknya dia bosen...)',
-		'show character fira readingTalking at center with fadeIn',
+		'show character fira reading at center with fadeIn',
 		'(Gua lansung duduk hadap-hadapan sama Fira...',
 		
 		{
@@ -420,9 +434,14 @@ monogatari.script ({
 
 	//------------------------------------------------------------------------ACT 1 - 3 NEGATIVE----------------------------------------------------------------
 	'act1-3a' : [
+		'show scene RuangTamu with fadeIn',
+		'stop music act1music with fade 5',
+		'play sound whiteNoise with volume 100 fade 1',
+		'show scene BGGlitch1',
+		'show character fira readingNervous at center',
 		'(Dia keliatan sedikit aneh sih, tapi meski kayak gitu gua penasaran banget sama dia sumpah)',
 		'Kaya, apakah dia separah itu??? Sekelas pada risih banget gitu sama dia...',
-
+		
 		{
 			'Choice': {
 				'Dialog': '(...)',
@@ -440,6 +459,10 @@ monogatari.script ({
 	],
 
 	'act1-3a-1':[
+		//'show scene RuangTamu with fadeIn end-fadeOut',
+		'show scene BGGlitch2',
+		'show character fira readingNervous at center',
+	
 		'(Keliatannya dia kaya gapernah ngelakuin hal yang aneh-aneh gitu masa.)',
 		'(Tapi emang tubuhnya keliatan kasar gitu sih bisa jadi.)',
 
@@ -481,11 +504,18 @@ monogatari.script ({
             }   
 		}},
 
+		
+		'show scene BGGlitch3',
 		'show character fira readingNervous at center',
+
+
 		'(...Ah...Anjir...)',
 		'(Gua gasengaja ketemu mata dengan dia)',
 		'(...Jujur gua gatau sih ketemu mata apa kaga, karena poni-nya yang tebel abis, tapi muka dia ganyaman gitu)',
+		'show scene RuangTamu with end-fadeOut',
 		'show character fira readingNervousTalking at center',
+		'stop sound whiteNoise with fade 1',
+		'play music act1music with loop',
 		'fira Lo bisa berhenti liatin gua ga?',
 		'show character fira readingNervous at center',
 		'S-sori, gua denger ada yang ngomongin lo soalnya di kelas, jadinya gua kepo aja sama lo.',
@@ -626,16 +656,18 @@ monogatari.script ({
 
 
 
-	//KEBAWAH SINI BELOM DITAMBAHIN EXPREESI
-
 
 //------------------------------------------------------------------------ACT 1 - 6----------------------------------------------------------------
 	'act1-6': [
 		'Lu udah tau tapi kita garap apa?',
-		'show character fira talking at center',
+		'show character fira talking at center with end-fadeOut',
 		'fira Ga, kita garap apaan emg?',
 		'(Ini anak kaga ngedengerin apa gimana ya...)',
 		'Kita lagi belajar struktur manusia, kita kedapetannya reproduksi manusia btw.',
+		'show scene BGDistort with fadeIn',
+		'show character fira panic with fadeIn end-fadeOut',
+		'stop music act1music with fade 5',
+		'play sound breathing with volume 80 fade 3 loop',
 		'fira H-hah..???',
 		'Iya... Kita suruh susun essay sama sesuatu yang buat kita presentasiin di depan kelas. Mayan banyak sih tapi bisa diatur.',
 		'fira ...',
@@ -685,10 +717,14 @@ monogatari.script ({
 		}},
 
 		'Kenapa Fir? Ini ngingetin lo sama sesuatu?',
+		'show ',
 		'fira ....Hah..',
 		'(Ekspresi dia itu seakan-akan kaya apa yang gua pikirin itu bener)',
 		'fira ...',
 		'fira ...Apa maksud lo...',
+		'show scene RuangTamu',
+		'show character fira panic',
+		'stop sound breathing with fade 1',
 		'(Dia diem sebentar kemudian lansung buka bukunya lagi)',
 		'show scene #000000 with fadeIn',
 		'jump act2-1'
@@ -720,6 +756,8 @@ monogatari.script ({
 		'(Gua ngerasa canggung abis buat nanya jadinya gua diem aja.)',
 		'(Gua ngebiarin dia diem sejenak sebelum gua tanyain dia lagi.)',
 		'...Fira?',
+		'show scene RuangTamu with fadeIn end-fadeOut',
+		'stop sound breathing with fade 1',
 		'fira I-iya, gua fine-fine aja. Ayo, kalo mau mulai garap.',
 		'show scene #000000 with fadeIn',
 		'jump act2-1'
@@ -1028,6 +1066,9 @@ monogatari.script ({
 		}},
 		
 		'Fir, yang ditangan lo itu apa?',
+		'show scene BGGlitch2 with fadeIn',
+		'stop music act2music with fade 5',
+		'play sound whiteNoise with fade 1',
 		'show character fira panic at center with fadeIn end-fadeOut',
 		'(Fira secara sigap lansung meletakkan hapenya dan menutupi bekas luka di tangannya)',
 		'D-Do you cut yourself???',
@@ -1035,8 +1076,11 @@ monogatari.script ({
 		'fira ...', 
 		'fira ...Gua punya kucing dirumah...',
 		'(Ok thats obviously a lie)',
+		'show scene RuangTamu',
+		'stop sound whiteNoise with fade1',
 		'show character fira annoyed at center with fadeIn end-fadeOut',
 		'fira Udah ah Anjing. Lo nanya-nanya ga jelas lagi gua pukul lo asli',
+		'play music act2music with fade 3 volume 60',
 		'jump act2-7',
 	],
 
@@ -1117,9 +1161,12 @@ monogatari.script ({
             }   
 		}},
 
+	
 		'(But still ini tempat gua, kok diberantakin seenak jidat sih...)',
 		'(Gua jongkok dan ngambil plastik yang ada di kaki gua)',
 		'(Hm?)',
+		'stop music act2music with fade 3',
+		'play music act3music with loop volume 60 fade 3',
 		// Nampilin pill
 		'(ini...obat?)',
 		'(Gua ngeliat kantong plastik obat dan ga ada label penjelasan mengenai apa obat itu.)',
@@ -1298,6 +1345,9 @@ monogatari.script ({
 		'(Fira lansung cabut dari ruangan, ninggalin gw bengong sendiri)',
 		'....',
 		'Huh??',
+		'show scene GoodEnd with fadeIn end-fadeOut',
+		'Tamat...',
+		'end'
 		//Nampilin Good ending
 	],
 
@@ -1312,13 +1362,19 @@ monogatari.script ({
 		'fira jangan kontak gua',
 		'Hah...?',
 
+		'show scene #000000 with fadeIn end-fadeOut',
+		'.....Tamat...?',
+		'end'
+
 		//Nampilin Neutral ending
 	],
 
 	//------------------------------------------------------------------------BAD ENDING - 1----------------------------------------------------------------
 	'act4neg-1' : [
 		'stop music act2music with fade 3',
+		'stop music act3music with fade 3',
 		'play music act4negmusic with loop volume 60 fade 3',
+		'show scene #212121 with fadeIn end-fadeOut',
 		'(Tiba-tiba pintu kamar mandi kebuka dan Fira dengan jelas ngeliat gua lagi ngebongkar isi tas dia)',
 		'fira Lo....ngapain..',
 		'fira LO NGAPAIN GUA TANYA',
@@ -1390,7 +1446,6 @@ monogatari.script ({
 		'Lo beneran pernah ngebunuh bayi?',
 		'fira ...',
 		'Ada rumor kaya gitu soal lo',
-		//muka fira ngehitam??
 		'fira Dan kalian percaya?',
 		'Sekarang gua makin yakin setelah ngeliat kelakuan lo',
 		'fira ...',
@@ -1406,6 +1461,9 @@ monogatari.script ({
 		'Gghkk!!',
 		'(Tangan gua berusaha ngelepasin cengkraman Fira tapi gabisa)',
 		'(Secara insting gua pukul kepalanya cukup keras)',
+
+		'show scene BGGlitchGray with fadeIn end-fadeOut',
+		'show character fira hit at center with fadeIn end-fadeOut',
 		'(Fira akhirnya ngelepas  tangan dia dari leher gua)',
 		'GHAK!!',
 		'Hah...Hah...',
@@ -1418,29 +1476,38 @@ monogatari.script ({
 		'F-Fira??',
 		'(Fira semakin mendekat kearah gua)',
 		'fira The shit yang harus gua bopong yang bahkan dari awal bukan salah gua',
+		'hide character fira hit',
+		'stop music act4negmusic with fade 5',
+
+		'play sound crying with fade 2',
 		'fira .....',
 		'fira ....hiks',
 		'(D-Dia nangis??)',
 		'fira Hidup gua bakal jauh dari kata sengsara...... Kalau si bangsat itu ga kaya anjing birahi',
 		'(Hah?? Maksudnya apa????)',
-		'(fira Kalian itu bodoh banget)',
+		'fira Kalian itu bodoh banget',
 		'fira KALIAN BISA GITU KEMAKAN OMONGAN ORANG YANG BAHKAN KALIAN GA TAU DARIMANA ASAL MULANYA',
 		'fira Kalian mau gua ngebunuh orang gitu? Biar rumornya jadi kenyataan? Gitu?',
+		'show scene #212121 with fadeIn',
 		'(Fira ngambil pisau lipet yang terkapar dilantai)',
 		'Fira??',
 		'FIRA?????',
 		'(ngga ngga ngga NGGA NGGA NGGA NGGA NGGA GUA GAMAU MATI)',
 		'(Gua pegang pergelangan tangan Fira dan ngedorong dia ke lantai)',
 		'(Pisau lipatnya juga berhasil gua rebut dari dia)',
+		'play sound crying with fade 1',
 		'(....Aneh, padahal tenaga Fira sekuat itu tadi....)',
 		'.....',
 		'F-Fira??',
+		'play music act4deadmusic with loop fade 1',
+		'show scene FiraDead1 with end-fadeOut',
 		'(Fira ga bergeming)',
 		'FIRA????',
 		'(...........)',
 		'(did I...)',
 		'FIR',
 		'FIRA',
+		'show scene FiraDead2 with end-fadeOut',
 		'FIRA MAAF GUA-',
 		'khh....',
 		'........',
@@ -1450,6 +1517,10 @@ monogatari.script ({
 
 
 		//Visual Fira terkapar???
+		'show scene #212121 with fadeIn end-fadeOut',
+		'...',
+		'......',
+		'show scene NightmareRed with fadeIn end-fadeOut',
 		
 		
 		
@@ -1469,7 +1540,7 @@ monogatari.script ({
 		'Bagaimana dengan Fira?',
 		'Hidupnya berhenti sampai disini cuma gara-gara rasa ingin tahu kamu.',
 		'Ditunggu karmanya di daerah {{player.domisili}} ya.',
-
+		'end'
 		//Bad end
 
 	],
