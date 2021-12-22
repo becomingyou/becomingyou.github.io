@@ -112,6 +112,7 @@ monogatari.assets ('images', {
 // Define the backgrounds for each scene.
 monogatari.assets ('scenes', {
 	'RuangTamu': 'RuangTamu.png',
+	'KamarMandi' : 'KamarMandi.png',
 	'Nightmare': 'Nightmare.png',
 	'NightmareRed': 'NightmareRed.gif',
 	'FiraGlitching': 'FiraGlitching.gif',
@@ -137,7 +138,9 @@ monogatari.characters ({
 			talking: 'FiraTalking.png',
 			annoyed: 'FiraAnnoyed.png',
 			angry: 'FiraAngry.png',
+			angryClose : 'FiraAngryClose.png',
 			panic: 'FiraPanic.png',
+			panicClose: 'FiraPanicClose.png',
 			panicEye: 'FiraPanicEye',
 			reading: 'FiraRead.png',
 			readingTalking: 'FiraReadTalking.png',
@@ -165,7 +168,7 @@ monogatari.script ({
 		//Input nama asli
 		{
 			'Input': {
-				'Text': 'Siapa namamu?',
+				'Text': 'Masukkan nama sesuai KTP anda',
 				'Validation': function (input) {
 					return input.trim ().length > 0;
 				},
@@ -1402,10 +1405,13 @@ monogatari.script ({
 		'stop music act2music with fade 3',
 		'stop music act3music with fade 3',
 		'play music act4negmusic with loop volume 60 fade 3',
-		'show scene #212121 with fadeIn end-fadeOut',
+		'show scene KamarMandi with fadeIn end-fadeOut',
 		'(Tiba-tiba pintu kamar mandi kebuka dan Fira dengan jelas ngeliat gua lagi ngebongkar isi tas dia)',
+		'show character fira panicClose with fadeIn end-fadeOut',
 		'fira Lo....ngapain..',
+		'show character fira angryClose with fadeIn end-fadeOut',
 		'fira LO NGAPAIN GUA TANYA',
+		'show scene #212121 with fadeIn end-fadeOut',
 		'show image FiraChoke with fadeIn',
 		'(Fira narik kearah gua dan ngehempas badan gua ke dinding)',
 		'fira GUA DARI TADI UDAH SABAR YA SAMA LO',
